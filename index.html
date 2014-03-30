@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Darts</a>
+        <ul class="nav">
+          <li>{{#link-to 'game'}}Game{{/link-to}}</li>
+        </ul>
+      </div>
+    </div>
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="game">
+    <section class="hero-unit">
+    <h1>2 Player Darts</h1>
+    <h5>Created by Steven Jimenez</h5>
+    </section>
+    
+    <section class="span12"id = "edit_limit">
+      {{#if editing}}
+        {{input type="number" value=newLimit placeholder="Set Limit"}}
+        <br />
+        <button class="btn btn-primary" {{action 'setLimit' newLimit}}>Set Limit</button>    
+        <br />
+        <br />
+      {{else}}
+        <h3>Score Limit: {{model.limit}}</h3>
+        <button class="btn btn-danger" {{action 'editLimit'}}>Edit Limit</button>
+        <br />
+        <br />
+      {{/if}}
+    </section>
+
+    {{#each model.players}}
+      <section class="span4" id="playerInfo">
+        <h3>{{this.playerName}}</h3>
+        <p><strong>Score: {{this.score}}</strong></p>
+        
+        {{input type="number" value=newPoints placeholder="Add Points"}}
+          
+        <br />
+          
+        <button class="btn btn-success" {{action 'addPoints' this newPoints}}>Add Points</button>
+
+        <br />
+        <br />
+        <br />
+        <br />
+      </section>
+    {{/each}}
+
+    
+
+    {{#if canAddPlayers}}
+      <section class="span12"id = "add_player">
+        {{input type="text" value=newPlayer placeholder="Add Player"}}
+        <br />
+        <button class="btn btn-primary" {{action 'addPlayer' newPlayer}}>Add Player</button>    
+      </section>
+    {{/if}}
+    
+  </script>
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.8.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/data.js"></script>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+
+
+</body>
+</html>
