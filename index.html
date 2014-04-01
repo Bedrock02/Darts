@@ -16,7 +16,8 @@
       <div class="navbar-inner">
         <a class="brand" href="#">Darts</a>
         <ul class="nav">
-          <li>{{#link-to 'game'}}Game{{/link-to}}</li>
+          <li><a href = "index.html#/game">New Game</a></li>
+          <li>{{#link-to 'about'}}About{{/link-to}}</li>
         </ul>
       </div>
     </div>
@@ -29,24 +30,32 @@
     <h5>Created by Steven Jimenez</h5>
     </section>
     
-    <section class="span12"id = "edit_limit">
-      {{#if editing}}
-        {{input type="number" value=newLimit placeholder="Set Limit"}}
-        <br />
-        <button class="btn btn-primary" {{action 'setLimit' newLimit}}>Set Limit</button>    
-        <br />
-        <br />
-      {{else}}
-        <h3>Score Limit: {{model.limit}}</h3>
-        <button class="btn btn-danger" {{action 'editLimit'}}>Edit Limit</button>
-        <br />
-        <br />
-      {{/if}}
-    </section>
+
+    {{#if playWithLimit}}
+      <section class="span12" id = "edit_limit">
+        {{#if editing}}
+          {{input type="number" value=newLimit placeholder="Set Limit"}}
+          <br />
+          <button class="btn btn-primary" {{action 'setLimit' newLimit}}>Set Limit</button>    
+          <button class="btn btn-primary" {{action 'noLimit'}}>No Limit</button>
+          <br />
+          <br />
+        
+        {{else}}
+          <h3>Score Limit: {{model.limit}}</h3>
+          <button class="btn btn-danger" {{action 'editLimit'}}>Edit Limit</button>
+          <br />
+          <br />
+        {{/if}}
+      </section>
+
+    {{/if}}
 
     {{#each model.players}}
       <section class="span4" id="playerInfo">
         <h3>{{this.playerName}}</h3>
+        
+        
         <p><strong>Score: {{this.score}}</strong></p>
         
         {{input type="number" value=newPoints placeholder="Add Points"}}
@@ -73,6 +82,43 @@
     {{/if}}
     
   </script>
+
+
+  <script type="text/x-handlebars" id = "winner">
+    <section class = "span12">
+      <h1>Winner: {{model.winner.playerName}}</h1>
+      <p> Points Scored: {{model.winner.score}}</p>
+      <button class="btn btn-primary" {{ action 'newGame' }}>New Game</button>
+      <button class="btn btn-primary" {{ action 'restartGame' }}>Restart Game</button>
+    </section>
+  </script>
+
+  <script type="text/x-handlebars" id = "about">
+    <section class = "span12">
+      <h1>How to Use Darts</h1>
+      <section class = "span4">
+        <h3>Limit Or No Limit?</h3>
+        
+        <p>You can use the Dart Manager with or without a limit. If you set a limit to the game,
+        the first person to reach or surpass the point limit wins the game.</p>
+        <p>If you do not set a limit you can use the Dart Manager for as long as you want. A winner
+        will not be determined</p>
+
+        <h3>1 Player or 2 Players?</h3>
+        <p>For this app you can play solo or play against a friend. Once two players are added you will not be
+        able to add another player</p>
+      </section>
+      <section class = "span4">
+        <h3>Materials Needed</h3>
+        <ul>
+          <li>Darts</li>
+          <li>Dart Board</li>
+          <li>At least 1 Player</li>
+        </ul>
+      </section>
+    </section>
+  </script>
+
 
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0.js"></script>
